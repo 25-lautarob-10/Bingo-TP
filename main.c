@@ -1,95 +1,88 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "funciones.h"
 
-int main()
+
+
+#ifndef FUNCIONES_H_INCLUDED
+#define FUNCIONES_H_INCLUDED
+
+//PRE: pide un numero minimo y un numero maximo
+//POST: devuelve un numero aleatorio entre los numeros dados
+int BolillaAleatoria(int mini, int maxi);
+//PRE: pide un vector declarado sin asignar, el tamaño del vector, un numero minimo y un numero maximo
+//POST: le asigna al vector numeros aleatorios entre el numero minimo y maximo especificado
+void cargarVectorConBolillas( int tam, int mini, int maxi);
+//PRE: se declaraun vector declarado sin asignar, el tamaño del vector, un numero minimo y un numero maximo
+//POST: Se le asigna al vector numeros aleatorios sin repetir entre el numero minimo y maximo especificado
+void cargarVectorConBolillasSinRepetir( int tam, int mini, int maxi);
+
+
+
+
+#endif // FUNCIONES_H_INCLUDED
+
+int main () 
 {
-    srand(time(0));
-    int cantCarton, tipoCarton, carton1[3][5],carton2[3][5],carton3[3][5];
-
-    do
-    {
-        //las siguentes lineas son para elegir la cantidad de cartones
-        printf("Bienvenido al bingo\n\n");
-        printf("Escribe 1 para solo usar un carton\n");
-        printf("Escribe 2 para solo usar dos cartones\n");
-        printf("Escribe 3 para solo usar tres cartones\n");
-        printf("Una ves formado tu carton presiona 0\n");
-        scanf("%d",&cantCarton);
-
-        //las siguentes lineas son para elegir como van a cargar el carton
-        printf("\nQue carton quieres?\n");
-        printf("\nIngrese 1 para tomar un/unos carton/cartones alatorio/s\n");
-        printf("Ingrese 2 para personalizar su/s carton/cartones\n");
-        scanf("%d",&tipoCarton);
-
-        if(tipoCarton==1)
-        {
-            switch(cantCarton)
-            {
-                case 1:
-                    asignarCarton(carton1);
-                    dibujarCarton(carton1, 1);
-                    break;
-                case 2:
-                    asignarCarton(carton1);
-                    dibujarCarton(carton1, 1);
-
-                    asignarCarton(carton2);
-                    dibujarCarton(carton2, 2);
-                    break;
-                case 3:
-                    asignarCarton(carton1);
-                    dibujarCarton(carton1, 1);
-
-                    asignarCarton(carton2);
-                    dibujarCarton(carton2, 2);
-
-                    asignarCarton(carton3);
-                    dibujarCarton(carton3, 3);
-                    break;
-                case 0:
-                    break;
-                default:printf("\n------error------\n");
-            }
-        }
-
-        if(tipoCarton==2)
-        {
-            switch(cantCarton)
-            {
-                case 1:
-                    asignarCarton(carton1);
-                    dibujarCarton(carton1, 1);
-                    break;
-                case 2:
-                    asignarCarton(carton1);
-                    dibujarCarton(carton1, 1);
-
-                    asignarCarton(carton2);
-                    dibujarCarton(carton2, 2);
-                    break;
-
-                case 3:
-                    asignarCarton(carton1);
-                    dibujarCarton(carton1, 1);
-
-                    asignarCarton(carton2);
-                    dibujarCarton(carton2, 2);
-
-                    asignarCarton(carton3);
-                    dibujarCarton(carton3, 3);
-                    break;
-
-                case 0:
-                    break;
-                default:printf("\n------error------\n");
-            }
-        }
-    }while(cantCarton==0);
-
+   int mini=0;
+   int maxi=10;
+   int tam=10;
+ for (int i=0;i<=tam;i++){
+   while(cargarVectorConBolillasSinRepetir){
+       
+   BolillaAleatoria(mini,maxi);
+   cargarVectorConBolillas(tam,mini,maxi);
+   cargarVectorConBolillasSinRepetir(tam,mini,maxi);
+ }
+ }
     return 0;
+    
+    
 }
 
+
+
+int BolillaAleatoria(int mini, int maxi)
+{
+    int bolilla=mini + rand()%(maxi-mini+1);
+    printf("     ___________        \n");
+    printf("    |           |       \n");
+    printf("    |           |       \n");
+    printf("    |     %d    |       \n",bolilla);
+    printf("    |           |       \n");
+    printf("    |___________|       \n");
+    return bolilla;
+}
+
+void cargarVectorConBolillas( int tam, int mini, int maxi)
+{
+    int aleatorio = 0;
+    int vec[90];
+    for (int i = 0; i < tam; i++)
+    {
+        aleatorio = BolillaAleatoria(mini, maxi);
+        vec[i] = aleatorio;
+    }
+}
+
+void cargarVectorConBolillasSinRepetir( int tam, int mini, int maxi)
+{
+    int aleatorio = 0;
+    int vec[90];
+    for (int i = 0; i < tam; i++)
+    {
+        aleatorio = BolillaAleatoria(mini, maxi);
+
+        for(int j = 0; j < i; j++)
+        {
+
+            if (vec[j] == aleatorio)
+            {
+                aleatorio = BolillaAleatoria(mini, maxi);
+                j = 0;
+            }
+        }
+
+        vec[i] = aleatorio;
+    }
+}
